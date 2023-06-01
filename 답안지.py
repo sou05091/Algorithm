@@ -1,28 +1,31 @@
-grades = {
-    "A+": 4.5,
-    "A0": 4.0,
-    "B+": 3.5,
-    "B0": 3.0,
-    "C+": 2.5,
-    "C0": 2.0,
-    "D+": 1.5,
-    "D0": 1.0,
-    "F": 0.0
-}
+import sys
 
-total_credits = 0.0
-weighted_sum = 0.0
-
-for _ in range(20):
-    subject, credit, grade = input().split()
-    credit = float(credit)
+def find_parent(nodes, start):
+    parent = [0] * (len(nodes) + 1)
+    stack = [start]
     
-    if grade == "P":
-        continue
+    while stack:
+        node = stack.pop()
+        
+        for child in nodes[node]:
+            if parent[child] == 0:
+                parent[child] = node
+                stack.append(child)
     
-    total_credits += credit
-    weighted_sum += credit * grades[grade]
+    return parent
 
-gpa = weighted_sum / total_credits
+# 입력 받기
+n = int(sys.stdin.readline())
+nodes = [[] for _ in range(n + 1)]
 
-print(gpa)
+for _ in range(n - 1):
+    a, b = map(int, sys.stdin.readline().split())
+    nodes[a].append(b)
+    nodes[b].append(a)
+
+# 부모 찾기
+parents = find_parent(nodes, 1)
+
+# 출력
+for i in range(2, n + 1):
+    print(parents[i])

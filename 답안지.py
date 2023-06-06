@@ -1,31 +1,25 @@
-import sys
+def remove_duplicates(array1, array2):
+    # 중복된 값을 저장할 set을 생성합니다.
+    duplicates = set()
 
-def find_parent(nodes, start):
-    parent = [0] * (len(nodes) + 1)
-    stack = [start]
-    
-    while stack:
-        node = stack.pop()
-        
-        for child in nodes[node]:
-            if parent[child] == 0:
-                parent[child] = node
-                stack.append(child)
-    
-    return parent
+    # 첫 번째 배열의 값들을 set에 추가합니다.
+    for value in array1:
+        duplicates.add(value)
 
-# 입력 받기
-n = int(sys.stdin.readline())
-nodes = [[] for _ in range(n + 1)]
+    # 두 번째 배열에서 중복된 값을 제거합니다.
+    for value in array2:
+        duplicates.discard(value)
 
-for _ in range(n - 1):
-    a, b = map(int, sys.stdin.readline().split())
-    nodes[a].append(b)
-    nodes[b].append(a)
+    # 중복된 값이 제거된 배열을 반환합니다.
+    return list(duplicates)
 
-# 부모 찾기
-parents = find_parent(nodes, 1)
 
-# 출력
-for i in range(2, n + 1):
-    print(parents[i])
+# 두 배열을 정의합니다.
+array1 = [1, 2, 3, 4, 5]
+array2 = [4, 5, 6, 7, 8]
+
+# 중복된 값이 제거된 배열을 얻습니다.
+result = remove_duplicates(array1, array2)
+
+# 결과 출력
+print(result)

@@ -1,3 +1,4 @@
+# 중복된 값 제거
 def remove(arr, arr1):
     rem = set()
     for value in arr:

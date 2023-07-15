@@ -1,26 +1,13 @@
-import sys
+def move(n, x, y, path):
+    if n > 0:
+        move(n - 1, x, 6 - x - y, path)
+        path.append((x, y))
+        move(n - 1, 6 - x - y, y, path)
 
-M = int(sys.stdin.readline())
-S = set()
+n = int(input())
+path = []
+move(n, 1, 3, path)
 
-for _ in range(M):
-    operation = sys.stdin.readline().split()
-    if operation[0] == "add":
-        S.add(int(operation[1]))
-    elif operation[0] == "remove":
-        S.discard(int(operation[1]))
-    elif operation[0] == "check":
-        if int(operation[1]) in S:
-            print(1)
-        else:
-            print(0)
-    elif operation[0] == "toggle":
-        x = int(operation[1])
-        if x in S:
-            S.discard(x)
-        else:
-            S.add(x)
-    elif operation[0] == "all":
-        S = set(range(1, 21))
-    elif operation[0] == "empty":
-        S = set()
+print(len(path))
+for move in path:
+    print(move[0], move[1])

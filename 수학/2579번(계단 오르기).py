@@ -14,4 +14,4 @@ if n > 2:
 for i in range(3, n):
     dp[i] = max(dp[i-2] + scores[i], dp[i-3] + scores[i-1] + scores[i])
 
-print(dp[n-1])
+print(dp)
